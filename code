@@ -1,0 +1,36 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load dataset
+df = pd.read_csv("your_dataset.csv")
+
+# 1. Initial Overview
+print(df.head())
+print(df.info())
+print(df.describe())
+
+# 2. Handling Missing Values
+df = df.fillna(df.mean())  # or use dropna(), fill with median/mode
+
+# 3. Feature Selection (example)
+selected_features = df[['feature1', 'feature2', 'target']]  # choose based on correlation
+
+# 4. Handling Outliers
+sns.boxplot(data=df)
+plt.title("Boxplot to detect outliers")
+plt.show()
+
+# 5. Data Transformation
+# Example: Normalize/encode
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+df[['feature1', 'feature2']] = scaler.fit_transform(df[['feature1', 'feature2']])
+
+# 6. Visualizations
+sns.heatmap(df.corr(), annot=True)
+plt.title("Feature Correlation Heatmap")
+plt.show()
+
+# 7. Summary Statistics
+print(df.describe())
